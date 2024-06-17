@@ -1,3 +1,4 @@
+import "./articleDetails.css";
 import { ncNewsApi } from "../../utils/api";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
@@ -43,8 +44,10 @@ export function ArticleDetails() {
       <div className="article-text-container">
         <h3 className="article-title">Author: {article.title}</h3>
         <p className="article-topic">Topic: {article.topic}</p>
+        <p className="article-body">{article.body}</p>
         <p className="article-author">Author: {article.author}</p>
         <p className="article-date">Date: {articleDate}</p>
+        <button>Vote</button>
       </div>
     </article>
   );
