@@ -1,3 +1,3 @@
 export function AddArticle() {
-  return <form action="">form</form>;
+  return <form action="">AddArticle</form>;
 }
