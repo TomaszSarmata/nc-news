@@ -1,3 +1,9 @@
+import { ArticleList } from "../article-list/ArticleList";
+
 export function Home() {
-  return <main>Home</main>;
+  return (
+    <main className="main">
+      <ArticleList />
+    </main>
+  );
 }
