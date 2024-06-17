@@ -1,0 +1,37 @@
+1 - as a user I want to see all articles in order to choose one to read
+2 - I can filter articles by topic
+3 - I can choose one article from the entire list in order to read it
+4 - I can see comments for each article
+5 - I can add and delete my own comments for each article
+6 - I can add and delete my article if I choose to contribute
+7 - I can upvote and downvote each article
+
+Basic component tree structure:
+
+-App - main application component
+    -Header - contains navigation, search, and user profile
+    -Main - main content area
+        -Article list - displays a list of all articles
+            -Article Card - displays a brief description for each article with the up/down vote button
+        -Article Detail - displays the details of a specific article
+            -Comments List - displays comments for the article
+            -Comment Form - form to submit a new comments
+            -Vote Button - Buttons to upvote or downvote the article
+        -Add Article Form - form to add new article
+    -Footer - additional info and links
+
+
+App State:
+
+- articles: list of articles
+- filtered articles: list of articles after applying filters
+- current article: the article currently being viewed
+- comments: list of comments for the current article
+- user: logged-in details user's info
+- topics: list of tapics for filtering
+- votes: votes for the current article
+
+Routes:
+- Hompage - /
+- Single article page - /articles/:article_id
+- Add article form - /add-article
