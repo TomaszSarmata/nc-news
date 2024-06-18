@@ -3,18 +3,19 @@ import { ncNewsApi } from "../../utils/api";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { getArticleById } from "../../utils/api";
-import { getComments } from "../../utils/api";
+// import { getComments } from "../../utils/api";
 import { formatDate } from "../../utils/helper";
-import { submitComment } from "../../utils/api";
+// import { submitComment } from "../../utils/api";
+import { CommentList } from "../comment-list/CommentList";
 
 export function ArticleDetails() {
   const [article, setArticle] = useState(null);
-  const [comments, setComments] = useState(null);
+  // const [comments, setComments] = useState(null);
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [votes, setVotes] = useState(null);
   const [hasVoted, setHasVoted] = useState(false);
-  const [userComment, setUserComment] = useState("");
+  // const [userComment, setUserComment] = useState("");
   const [loading, setLoading] = useState(false);
   const { articleId } = useParams();
 
@@ -25,11 +26,11 @@ export function ArticleDetails() {
     });
   }, []);
 
-  useEffect(() => {
-    getComments(articleId).then(({ comments }) => {
-      setComments(comments);
-    });
-  }, []);
+  // useEffect(() => {
+  //   getComments(articleId).then(({ comments }) => {
+  //     setComments(comments);
+  //   });
+  // }, []);
 
   const handleUpVote = () => {
     if (hasVoted) return;
@@ -104,9 +105,9 @@ export function ArticleDetails() {
     return <div>loading...</div>;
   }
 
-  if (!comments) {
-    return <div>loading...</div>;
-  }
+  // if (!comments) {
+  //   return <div>loading...</div>;
+  // }
 
   const articleDate = formatDate(article.created_at);
 
@@ -133,8 +134,11 @@ export function ArticleDetails() {
         </div>
       </div>
 
-      <div className="add-comment-container">
+      <CommentList articleId={articleId} />
+
+      {/* <div className="add-comment-container">
         <h2>Add your comment</h2>
+        <p className={errorMessage ? "error" : ""}>{errorMessage}</p>
         {loading ? <div>loading...</div> : null}
         <form onSubmit={handleCommentSubmit}>
           <label htmlFor="user-comment">Your Comment:</label>
@@ -156,7 +160,7 @@ export function ArticleDetails() {
             <p className="comment-data">{formatDate(comment.created_at)}</p>
           </li>
         ))}
-      </ul>
+      </ul> */}
     </article>
   );
 }
