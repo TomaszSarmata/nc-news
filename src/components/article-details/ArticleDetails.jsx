@@ -2,6 +2,9 @@ import "./articleDetails.css";
 import { ncNewsApi } from "../../utils/api";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { getArticleById } from "../../utils/api";
+import { getComments } from "../../utils/api";
+import { formatDate } from "../../utils/helper";
 
 export function ArticleDetails() {
   const [article, setArticle] = useState(null);
@@ -10,34 +13,17 @@ export function ArticleDetails() {
   const { articleId } = useParams();
 
   useEffect(() => {
-    ncNewsApi.get(`/articles/${articleId}`).then(({ data }) => {
-      setArticle(data.article);
-      setVotes(data.article.votes);
+    getArticleById(articleId).then(({ article }) => {
+      setArticle(article);
+      setVotes(article.votes);
     });
   }, [article]);
 
   useEffect(() => {
-    ncNewsApi
-      .get(`/articles/${articleId}/comments`)
-      .then(({ data }) => setComments(data.comments));
+    getComments(articleId).then(({ comments }) => {
+      setComments(comments);
+    });
   }, []);
-
-  const formatDate = (isoDateString) => {
-    const date = new Date(isoDateString);
-
-    const options = {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
-      second: "2-digit",
-      timeZone: "UTC",
-      timeZoneName: "short",
-    };
-
-    return date.toLocaleString("en-GB", options);
-  };
 
   const handleUpVote = () => {
     setVotes(votes + 1);
