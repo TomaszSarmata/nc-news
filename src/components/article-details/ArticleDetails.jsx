@@ -12,6 +12,7 @@ export function ArticleDetails() {
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [votes, setVotes] = useState(null);
+  const [hasVoted, setHasVoted] = useState(false);
   const { articleId } = useParams();
 
   useEffect(() => {
@@ -28,6 +29,7 @@ export function ArticleDetails() {
   }, []);
 
   const handleUpVote = () => {
+    if (hasVoted) return;
     setErrorMessage("");
     setSuccessMessage("");
 
@@ -37,6 +39,7 @@ export function ArticleDetails() {
       .then(({ data }) => {
         setVotes(data.article.votes);
         setSuccessMessage("votes have been updated");
+        setHasVoted(true);
         setTimeout(() => {
           setSuccessMessage("");
         }, 5000);
@@ -45,10 +48,12 @@ export function ArticleDetails() {
         console.log("error:", err);
         setVotes(votes);
         setErrorMessage(err.message);
+        setHasVoted(false);
       });
   };
 
   const handleDownVote = () => {
+    if (hasVoted) return;
     setSuccessMessage("");
     setErrorMessage("");
 
@@ -58,6 +63,7 @@ export function ArticleDetails() {
       .then(({ data }) => {
         setVotes(data.article.votes);
         setSuccessMessage("votes have been updated");
+        setHasVoted(true);
         setTimeout(() => {
           setSuccessMessage("");
         }, 5000);
@@ -66,6 +72,7 @@ export function ArticleDetails() {
         console.log("error:", err);
         setVotes(votes);
         setErrorMessage(err.message);
+        setHasVoted(false);
       });
   };
 
