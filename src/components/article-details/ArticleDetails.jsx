@@ -6,19 +6,21 @@ import { useParams } from "react-router-dom";
 export function ArticleDetails() {
   const [article, setArticle] = useState(null);
   const [comments, setComments] = useState(null);
+  const [votes, setVotes] = useState(null);
   const { articleId } = useParams();
 
   useEffect(() => {
-    ncNewsApi
-      .get(`/articles/${articleId}`)
-      .then(({ data }) => setArticle(data.article));
-  }, []);
+    ncNewsApi.get(`/articles/${articleId}`).then(({ data }) => {
+      setArticle(data.article);
+      setVotes(data.article.votes);
+    });
+  }, [article]);
 
   useEffect(() => {
     ncNewsApi
       .get(`/articles/${articleId}/comments`)
       .then(({ data }) => setComments(data.comments));
-  });
+  }, []);
 
   const formatDate = (isoDateString) => {
     const date = new Date(isoDateString);
@@ -35,6 +37,33 @@ export function ArticleDetails() {
     };
 
     return date.toLocaleString("en-GB", options);
+  };
+
+  const handleUpVote = () => {
+    setVotes(votes + 1);
+    ncNewsApi
+      .patch(`/articles/${articleId}`, { inc_votes: 1 })
+      .then(({ data }) => {
+        console.log(data.article.votes, "here res from patching");
+        setVotes(data.article.votes);
+      })
+      .catch((err) => {
+        console.log("error:", err);
+        setVotes(votes);
+      });
+  };
+
+  const handleDownVote = () => {
+    setVotes(votes - 1);
+    ncNewsApi
+      .patch(`/articles/${articleId}`, { inc_votes: -1 })
+      .then(({ data }) => {
+        setVotes(data.article.votes);
+      })
+      .catch((err) => {
+        console.log("error:", err);
+        setVotes(votes);
+      });
   };
 
   if (!article) {
@@ -59,7 +88,11 @@ export function ArticleDetails() {
           <p className="article-body">{article.body}</p>
           <p className="article-author">Author: {article.author}</p>
           <p className="article-date">Date: {articleDate}</p>
-          <button>Vote</button>
+          <p className="article-votes">Number of votes: {article.votes}</p>
+          <div className="article-button-container">
+            <button onClick={handleUpVote}>Up Vote (+1)</button>
+            <button onClick={handleDownVote}>Down Vote (-1)</button>
+          </div>
         </div>
       </div>
 

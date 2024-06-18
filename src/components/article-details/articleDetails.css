@@ -30,3 +30,8 @@
   padding: 5px;
   border-radius: 10px;
 }
+
+.article-button-container {
+  display: flex;
+  gap: 10px;
+}
