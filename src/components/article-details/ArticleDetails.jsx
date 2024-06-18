@@ -9,7 +9,10 @@ import { formatDate } from "../../utils/helper";
 export function ArticleDetails() {
   const [article, setArticle] = useState(null);
   const [comments, setComments] = useState(null);
+  const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const [votes, setVotes] = useState(null);
+  const [hasVoted, setHasVoted] = useState(false);
   const { articleId } = useParams();
 
   useEffect(() => {
@@ -17,7 +20,7 @@ export function ArticleDetails() {
       setArticle(article);
       setVotes(article.votes);
     });
-  }, [article]);
+  }, []);
 
   useEffect(() => {
     getComments(articleId).then(({ comments }) => {
@@ -26,28 +29,48 @@ export function ArticleDetails() {
   }, []);
 
   const handleUpVote = () => {
-    setVotes(votes + 1);
+    if (hasVoted) return;
+    setErrorMessage("");
+    setSuccessMessage("");
+
+    setVotes((currentVotes) => currentVotes + 1);
     ncNewsApi
       .patch(`/articles/${articleId}`, { inc_votes: 1 })
       .then(({ data }) => {
-        setVotes(data.article.votes);
+        setSuccessMessage("votes have been updated");
+        setHasVoted(true);
+        setTimeout(() => {
+          setSuccessMessage("");
+        }, 5000);
       })
       .catch((err) => {
         console.log("error:", err);
         setVotes(votes);
+        setErrorMessage(err.message);
+        setHasVoted(false);
       });
   };
 
   const handleDownVote = () => {
-    setVotes(votes - 1);
+    if (hasVoted) return;
+    setSuccessMessage("");
+    setErrorMessage("");
+
+    setVotes((currentVotes) => currentVotes - 1);
     ncNewsApi
       .patch(`/articles/${articleId}`, { inc_votes: -1 })
       .then(({ data }) => {
-        setVotes(data.article.votes);
+        setSuccessMessage("votes have been updated");
+        setHasVoted(true);
+        setTimeout(() => {
+          setSuccessMessage("");
+        }, 5000);
       })
       .catch((err) => {
         console.log("error:", err);
         setVotes(votes);
+        setErrorMessage(err.message);
+        setHasVoted(false);
       });
   };
 
@@ -73,7 +96,10 @@ export function ArticleDetails() {
           <p className="article-body">{article.body}</p>
           <p className="article-author">Author: {article.author}</p>
           <p className="article-date">Date: {articleDate}</p>
-          <p className="article-votes">Number of votes: {article.votes}</p>
+          <p className="article-votes">Number of votes: {votes}</p>
+          <p className={errorMessage ? "error" : ""}>{errorMessage}</p>
+          <p className={successMessage ? "success" : ""}>{successMessage}</p>
+
           <div className="article-button-container">
             <button onClick={handleUpVote}>Up Vote (+1)</button>
             <button onClick={handleDownVote}>Down Vote (-1)</button>
