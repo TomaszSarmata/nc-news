@@ -1,9 +1,22 @@
 import "./articleCard.css";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 export function ArticleCard({ article }) {
-  console.log(article);
+  const [articleID, setArticleID] = useState(null);
+  const navigate = useNavigate();
+
+  const handleArticleID = (id) => {
+    navigate(`articles/${id}`);
+  };
+
   return (
-    <li className="article-card">
+    <li
+      className="article-card"
+      onClick={() => {
+        handleArticleID(article.article_id);
+      }}
+    >
       <div className="article-card-container">
         <div className="article-card-img-container">
           <img src={article.article_img_url} alt="" />
