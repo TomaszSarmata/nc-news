@@ -13,6 +13,11 @@ export function CommentForm({ articleId, setComments }) {
   };
 
   const handleCommentSubmit = (e) => {
+    if (!userComment) {
+      e.preventDefault();
+      setErrorMessage("Please include your comment");
+      return;
+    }
     setErrorMessage("");
     setSuccessMessage("");
     e.preventDefault();
