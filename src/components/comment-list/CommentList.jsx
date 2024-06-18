@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { getComments } from "../../utils/api";
 import { formatDate } from "../../utils/helper";
 import { submitComment } from "../../utils/api";
+import { CommentForm } from "../comment-form/CommentForm";
 
 export function CommentList({ articleId }) {
   const [errorMessage, setErrorMessage] = useState("");
@@ -10,15 +11,15 @@ export function CommentList({ articleId }) {
   const [userComment, setUserComment] = useState("");
   const [comments, setComments] = useState([]);
 
-  const handleUserComment = (e) => {
-    setUserComment(e.target.value);
-  };
-
   useEffect(() => {
     getComments(articleId).then(({ comments }) => {
       setComments(comments);
     });
   }, []);
+
+  const handleUserComment = (e) => {
+    setUserComment(e.target.value);
+  };
 
   const handleCommentSubmit = (e) => {
     setErrorMessage("");
@@ -50,7 +51,8 @@ export function CommentList({ articleId }) {
 
   return (
     <div className="comments-container">
-      <div className="add-comment-container">
+      <CommentForm articleId={articleId} setComments={setComments} />
+      {/* <div className="add-comment-container">
         <h2>Add your comment</h2>
         <p className={errorMessage ? "error" : ""}>{errorMessage}</p>
         {loading ? <div>loading...</div> : null}
@@ -65,7 +67,7 @@ export function CommentList({ articleId }) {
           />
           <button disabled={loading}>Submit</button>
         </form>
-      </div>
+      </div> */}
       <ul className="article-comments-container">
         <h2>Comments:</h2>
         {comments.map((comment) => (
