@@ -2,39 +2,53 @@ import "./articleDetails.css";
 import { ncNewsApi } from "../../utils/api";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { getArticleById } from "../../utils/api";
+import { getComments } from "../../utils/api";
+import { formatDate } from "../../utils/helper";
 
 export function ArticleDetails() {
   const [article, setArticle] = useState(null);
   const [comments, setComments] = useState(null);
+  const [votes, setVotes] = useState(null);
   const { articleId } = useParams();
 
   useEffect(() => {
-    ncNewsApi
-      .get(`/articles/${articleId}`)
-      .then(({ data }) => setArticle(data.article));
-  }, []);
+    getArticleById(articleId).then(({ article }) => {
+      setArticle(article);
+      setVotes(article.votes);
+    });
+  }, [article]);
 
   useEffect(() => {
+    getComments(articleId).then(({ comments }) => {
+      setComments(comments);
+    });
+  }, []);
+
+  const handleUpVote = () => {
+    setVotes(votes + 1);
     ncNewsApi
-      .get(`/articles/${articleId}/comments`)
-      .then(({ data }) => setComments(data.comments));
-  });
+      .patch(`/articles/${articleId}`, { inc_votes: 1 })
+      .then(({ data }) => {
+        setVotes(data.article.votes);
+      })
+      .catch((err) => {
+        console.log("error:", err);
+        setVotes(votes);
+      });
+  };
 
-  const formatDate = (isoDateString) => {
-    const date = new Date(isoDateString);
-
-    const options = {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
-      second: "2-digit",
-      timeZone: "UTC",
-      timeZoneName: "short",
-    };
-
-    return date.toLocaleString("en-GB", options);
+  const handleDownVote = () => {
+    setVotes(votes - 1);
+    ncNewsApi
+      .patch(`/articles/${articleId}`, { inc_votes: -1 })
+      .then(({ data }) => {
+        setVotes(data.article.votes);
+      })
+      .catch((err) => {
+        console.log("error:", err);
+        setVotes(votes);
+      });
   };
 
   if (!article) {
@@ -59,7 +73,11 @@ export function ArticleDetails() {
           <p className="article-body">{article.body}</p>
           <p className="article-author">Author: {article.author}</p>
           <p className="article-date">Date: {articleDate}</p>
-          <button>Vote</button>
+          <p className="article-votes">Number of votes: {article.votes}</p>
+          <div className="article-button-container">
+            <button onClick={handleUpVote}>Up Vote (+1)</button>
+            <button onClick={handleDownVote}>Down Vote (-1)</button>
+          </div>
         </div>
       </div>
 
