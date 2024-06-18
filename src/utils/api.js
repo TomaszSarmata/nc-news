@@ -11,3 +11,9 @@ export const getArticleById = (id) => {
 export const getComments = (id) => {
   return ncNewsApi.get(`/articles/${id}/comments`).then(({ data }) => data);
 };
+
+export const submitComment = (id, body) => {
+  return ncNewsApi
+    .post(`/articles/${id}/comments`, body)
+    .then(({ data }) => data);
+};
