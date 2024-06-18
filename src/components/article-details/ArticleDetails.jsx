@@ -64,6 +64,7 @@ export function ArticleDetails() {
       </div>
 
       <ul className="article-comments-container">
+        <h2>Comments:</h2>
         {comments.map((comment) => (
           <li className="comment-card" key={comment.comment_id}>
             <p className="comment-text">{comment.body}</p>

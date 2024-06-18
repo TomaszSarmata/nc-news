@@ -17,8 +17,16 @@
 }
 
 .article-comments-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-
+  margin-top: 20px;
   list-style-type: none;
+  margin: none;
+  padding: none;
+}
+
+.comment-card {
+  margin-top: 20px;
+  width: 50%;
+  background-color: #e5e7eb;
+  padding: 5px;
+  border-radius: 10px;
 }
