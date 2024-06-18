@@ -15,6 +15,7 @@ export function ArticleDetails() {
   const [votes, setVotes] = useState(null);
   const [hasVoted, setHasVoted] = useState(false);
   const [userComment, setUserComment] = useState("");
+  const [loading, setLoading] = useState(false);
   const { articleId } = useParams();
 
   useEffect(() => {
@@ -82,6 +83,7 @@ export function ArticleDetails() {
 
   const handleCommentSubmit = (e) => {
     e.preventDefault();
+    setLoading(true);
     submitComment(articleId, {
       username: "grumpy19",
       body: userComment,
@@ -91,6 +93,8 @@ export function ArticleDetails() {
         setComments((currentComments) => {
           return [comment, ...currentComments];
         });
+        setLoading(false);
+        setUserComment("");
       })
 
       .catch((err) => console.log("error:", err));
@@ -131,6 +135,7 @@ export function ArticleDetails() {
 
       <div className="add-comment-container">
         <h2>Add your comment</h2>
+        {loading ? <div>loading...</div> : null}
         <form onSubmit={handleCommentSubmit}>
           <label htmlFor="user-comment">Your Comment:</label>
           <textarea
