@@ -20,7 +20,7 @@ export function ArticleDetails() {
       setArticle(article);
       setVotes(article.votes);
     });
-  }, [article]);
+  }, []);
 
   useEffect(() => {
     getComments(articleId).then(({ comments }) => {
@@ -33,11 +33,10 @@ export function ArticleDetails() {
     setErrorMessage("");
     setSuccessMessage("");
 
-    setVotes(votes + 1);
+    setVotes((currentVotes) => currentVotes + 1);
     ncNewsApi
       .patch(`/articles/${articleId}`, { inc_votes: 1 })
       .then(({ data }) => {
-        setVotes(data.article.votes);
         setSuccessMessage("votes have been updated");
         setHasVoted(true);
         setTimeout(() => {
@@ -57,11 +56,10 @@ export function ArticleDetails() {
     setSuccessMessage("");
     setErrorMessage("");
 
-    setVotes(votes - 1);
+    setVotes((currentVotes) => currentVotes - 1);
     ncNewsApi
       .patch(`/articles/${articleId}`, { inc_votes: -1 })
       .then(({ data }) => {
-        setVotes(data.article.votes);
         setSuccessMessage("votes have been updated");
         setHasVoted(true);
         setTimeout(() => {
@@ -98,7 +96,7 @@ export function ArticleDetails() {
           <p className="article-body">{article.body}</p>
           <p className="article-author">Author: {article.author}</p>
           <p className="article-date">Date: {articleDate}</p>
-          <p className="article-votes">Number of votes: {article.votes}</p>
+          <p className="article-votes">Number of votes: {votes}</p>
           <p className={errorMessage ? "error" : ""}>{errorMessage}</p>
           <p className={successMessage ? "success" : ""}>{successMessage}</p>
 
