@@ -35,3 +35,11 @@
   display: flex;
   gap: 10px;
 }
+
+.error {
+  color: #ef4444;
+}
+
+.success {
+  color: #22c55e;
+}

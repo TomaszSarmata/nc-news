@@ -9,6 +9,8 @@ import { formatDate } from "../../utils/helper";
 export function ArticleDetails() {
   const [article, setArticle] = useState(null);
   const [comments, setComments] = useState(null);
+  const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const [votes, setVotes] = useState(null);
   const { articleId } = useParams();
 
@@ -26,28 +28,44 @@ export function ArticleDetails() {
   }, []);
 
   const handleUpVote = () => {
+    setErrorMessage("");
+    setSuccessMessage("");
+
     setVotes(votes + 1);
     ncNewsApi
       .patch(`/articles/${articleId}`, { inc_votes: 1 })
       .then(({ data }) => {
         setVotes(data.article.votes);
+        setSuccessMessage("votes have been updated");
+        setTimeout(() => {
+          setSuccessMessage("");
+        }, 5000);
       })
       .catch((err) => {
         console.log("error:", err);
         setVotes(votes);
+        setErrorMessage(err.message);
       });
   };
 
   const handleDownVote = () => {
+    setSuccessMessage("");
+    setErrorMessage("");
+
     setVotes(votes - 1);
     ncNewsApi
       .patch(`/articles/${articleId}`, { inc_votes: -1 })
       .then(({ data }) => {
         setVotes(data.article.votes);
+        setSuccessMessage("votes have been updated");
+        setTimeout(() => {
+          setSuccessMessage("");
+        }, 5000);
       })
       .catch((err) => {
         console.log("error:", err);
         setVotes(votes);
+        setErrorMessage(err.message);
       });
   };
 
@@ -74,6 +92,9 @@ export function ArticleDetails() {
           <p className="article-author">Author: {article.author}</p>
           <p className="article-date">Date: {articleDate}</p>
           <p className="article-votes">Number of votes: {article.votes}</p>
+          <p className={errorMessage ? "error" : ""}>{errorMessage}</p>
+          <p className={successMessage ? "success" : ""}>{successMessage}</p>
+
           <div className="article-button-container">
             <button onClick={handleUpVote}>Up Vote (+1)</button>
             <button onClick={handleDownVote}>Down Vote (-1)</button>
