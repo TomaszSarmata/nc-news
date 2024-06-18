@@ -1,5 +1,5 @@
 import "./articleDetails.css";
-import { ncNewsApi } from "../../utils/api";
+import { postUpVote, postDownVote } from "../../utils/api";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { getArticleById } from "../../utils/api";
@@ -28,9 +28,8 @@ export function ArticleDetails() {
     setSuccessMessage("");
 
     setVotes((currentVotes) => currentVotes + 1);
-    ncNewsApi
-      .patch(`/articles/${articleId}`, { inc_votes: 1 })
-      .then(({ data }) => {
+    postUpVote(articleId, { inc_votes: 1 })
+      .then(() => {
         setSuccessMessage("votes have been updated");
         setHasVoted(true);
         setTimeout(() => {
@@ -51,9 +50,8 @@ export function ArticleDetails() {
     setErrorMessage("");
 
     setVotes((currentVotes) => currentVotes - 1);
-    ncNewsApi
-      .patch(`/articles/${articleId}`, { inc_votes: -1 })
-      .then(({ data }) => {
+    postDownVote(articleId, { inc_votes: -1 })
+      .then(() => {
         setSuccessMessage("votes have been updated");
         setHasVoted(true);
         setTimeout(() => {
