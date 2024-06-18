@@ -30,7 +30,6 @@ export function ArticleDetails() {
     ncNewsApi
       .patch(`/articles/${articleId}`, { inc_votes: 1 })
       .then(({ data }) => {
-        console.log(data.article.votes, "here res from patching");
         setVotes(data.article.votes);
       })
       .catch((err) => {
