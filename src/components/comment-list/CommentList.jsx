@@ -1,3 +1,4 @@
+import "./commentList.css";
 import { useEffect, useState } from "react";
 import { getComments } from "../../utils/api";
 import { formatDate } from "../../utils/helper";
@@ -20,10 +21,11 @@ export function CommentList({ articleId }) {
   }, []);
 
   const handleCommentSubmit = (e) => {
+    setErrorMessage("");
     e.preventDefault();
     setLoading(true);
     submitComment(articleId, {
-      username: "grumpy19",
+      username: "grumpy1",
       body: userComment,
       article_id: articleId,
     })
@@ -35,7 +37,11 @@ export function CommentList({ articleId }) {
         setUserComment("");
       })
 
-      .catch((err) => console.log("error:", err));
+      .catch((err) => {
+        console.log("error:", err);
+        setErrorMessage("Something has gone wrong. Please try again");
+        setLoading(false);
+      });
   };
 
   if (!comments) {
