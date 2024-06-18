@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 
 export function ArticleDetails() {
   const [article, setArticle] = useState(null);
+  const [comments, setComments] = useState(null);
   const { articleId } = useParams();
 
   useEffect(() => {
@@ -12,6 +13,12 @@ export function ArticleDetails() {
       .get(`/articles/${articleId}`)
       .then(({ data }) => setArticle(data.article));
   }, []);
+
+  useEffect(() => {
+    ncNewsApi
+      .get(`/articles/${articleId}/comments`)
+      .then(({ data }) => setComments(data.comments));
+  });
 
   const formatDate = (isoDateString) => {
     const date = new Date(isoDateString);
@@ -34,21 +41,37 @@ export function ArticleDetails() {
     return <div>loading...</div>;
   }
 
+  if (!comments) {
+    return <div>loading...</div>;
+  }
+
   const articleDate = formatDate(article.created_at);
 
   return (
-    <article className="article-container">
-      <div className="article-image-container">
-        <img src={article.article_img_url} alt="" />
+    <article>
+      <div className="article-container">
+        <div className="article-image-container">
+          <img src={article.article_img_url} alt="" />
+        </div>
+        <div className="article-text-container">
+          <h3 className="article-title">Author: {article.title}</h3>
+          <p className="article-topic">Topic: {article.topic}</p>
+          <p className="article-body">{article.body}</p>
+          <p className="article-author">Author: {article.author}</p>
+          <p className="article-date">Date: {articleDate}</p>
+          <button>Vote</button>
+        </div>
       </div>
-      <div className="article-text-container">
-        <h3 className="article-title">Author: {article.title}</h3>
-        <p className="article-topic">Topic: {article.topic}</p>
-        <p className="article-body">{article.body}</p>
-        <p className="article-author">Author: {article.author}</p>
-        <p className="article-date">Date: {articleDate}</p>
-        <button>Vote</button>
-      </div>
+
+      <ul className="article-comments-container">
+        {comments.map((comment) => (
+          <li className="comment-card" key={comment.comment_id}>
+            <p className="comment-text">{comment.body}</p>
+            <p className="comment-author">{comment.author}</p>
+            <p className="comment-data">{formatDate(comment.created_at)}</p>
+          </li>
+        ))}
+      </ul>
     </article>
   );
 }

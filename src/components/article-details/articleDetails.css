@@ -4,10 +4,21 @@
   gap: 10px;
 }
 
+.article-container img {
+  width: 100%;
+}
+
 .article-text-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 0 10px;
+}
+
+.article-comments-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  list-style-type: none;
 }
