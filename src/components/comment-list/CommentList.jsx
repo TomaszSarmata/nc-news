@@ -61,8 +61,9 @@ export function CommentList({ articleId }) {
             id="user-comment"
             onChange={handleUserComment}
             value={userComment}
+            disabled={loading}
           />
-          <button>Submit</button>
+          <button disabled={loading}>Submit</button>
         </form>
       </div>
       <ul className="article-comments-container">
