@@ -8,7 +8,7 @@ export function ArticleCard({ article }) {
   const navigate = useNavigate();
 
   const handleArticleID = (id) => {
-    navigate(`articles/${id}`);
+    navigate(`/articles/${id}`);
   };
 
   return (

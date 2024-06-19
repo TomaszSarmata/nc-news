@@ -6,9 +6,7 @@ import { Header } from "./components/header/Header";
 import { Footer } from "./components/footer/Footer";
 import { Home } from "./components/home/Home";
 import { ArticleDetails } from "./components/article-details/ArticleDetails";
-import { AddArticle } from "./components/add-article/AddArticle";
 import { Search } from "./components/search/Search";
-import { ArticleList } from "./components/article-list/ArticleList";
 
 function App() {
   const [user, setUser] = useState("grumpy19");
@@ -29,8 +27,6 @@ function App() {
             path="/articles-by-topic/:topic"
             element={<Search user={user} />}
           ></Route>
-
-          <Route path="/add-article" element={<AddArticle />}></Route>
         </Routes>
 
         <Footer></Footer>
