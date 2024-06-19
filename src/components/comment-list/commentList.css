@@ -20,8 +20,13 @@
   border-radius: 50%;
   cursor: pointer;
   visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.3s, transform 0.3s ease-in-out;
+  transform: scale(0.5);
 }
 
 .comment-card:hover .delete-cross {
-  visibility: inherit;
+  visibility: visible;
+  opacity: 1;
+  transform: scale(1);
 }
