@@ -1,19 +1,44 @@
+.article-details {
+  max-width: 1000px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  margin: 0 auto;
+}
+
 .article-container {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.article-container:hover {
+  /* transform: translateY(-5px); */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.article-image-container {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
 }
 
 .article-container img {
   width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .article-text-container {
+  padding: 20px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 0 10px;
 }
 
 .article-comments-container {
@@ -23,17 +48,45 @@
   padding: none;
 }
 
-.comment-card {
-  margin-top: 20px;
-  width: 50%;
-  background-color: #e5e7eb;
-  padding: 5px;
-  border-radius: 10px;
+.article-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+.article-topic,
+.article-author,
+.article-date,
+.article-votes {
+  font-size: 14px;
+  color: #777;
+  margin: 5px 0;
+}
+
+.article-body {
+  font-size: 16px;
+  color: #333;
+  margin: 10px 0;
 }
 
 .article-button-container {
   display: flex;
   gap: 10px;
+  margin-top: 15px;
+}
+
+.article-button-container button {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.article-button-container button:hover {
+  background-color: #45a049;
 }
 
 .error {
@@ -42,4 +95,23 @@
 
 .success {
   color: #22c55e;
+}
+
+/* @media (min-width: 600px) {
+  .article-container {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .article-text-container {
+    align-items: flex-start;
+    text-align: left;
+  }
+} */
+
+.comment-card {
+  margin-top: 20px;
+  width: 50%;
+  background-color: #e5e7eb;
+  padding: 5px;
+  border-radius: 10px;
 }

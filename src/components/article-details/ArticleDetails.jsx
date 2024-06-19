@@ -17,11 +17,21 @@ export function ArticleDetails({ user }) {
   const { articleId } = useParams();
 
   useEffect(() => {
-    getArticleById(articleId).then(({ article }) => {
-      setArticle(article);
-      setVotes(article.votes);
-    });
-  }, []);
+    setErrorMessage("");
+    setSuccessMessage("");
+    setLoading(true);
+    getArticleById(articleId)
+      .then(({ article }) => {
+        setArticle(article);
+        setVotes(article.votes);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.log("error:", err);
+        setErrorMessage("There was a problem fetching article details");
+        setLoading(false);
+      });
+  }, [articleId]);
 
   const handleUpVote = () => {
     if (hasVoted) return;
@@ -57,30 +67,30 @@ export function ArticleDetails({ user }) {
         setHasVoted(true);
         setTimeout(() => {
           setSuccessMessage("");
-        }, 5000);
+        }, 3000);
       })
       .catch((err) => {
         console.log("error:", err);
         setVotes(votes);
-        setErrorMessage(err.message);
+        setErrorMessage("There was a problem updating your vote");
         setHasVoted(false);
       });
   };
 
-  if (!article) {
+  if (loading || !article) {
     return <Loader />;
   }
 
   const articleDate = formatDate(article.created_at);
 
   return (
-    <article>
+    <article className="article-details">
       <div className="article-container">
         <div className="article-image-container">
-          <img src={article.article_img_url} alt="" />
+          <img src={article.article_img_url} alt={article.title} />
         </div>
         <div className="article-text-container">
-          <h3 className="article-title">Author: {article.title}</h3>
+          <h3 className="article-title">{article.title}</h3>
           <p className="article-topic">Topic: {article.topic}</p>
           <p className="article-body">{article.body}</p>
           <p className="article-author">Author: {article.author}</p>
