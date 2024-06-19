@@ -22,6 +22,11 @@ function App() {
             path="/articles/:articleId"
             element={<ArticleDetails user={user} />}
           ></Route>
+          <Route
+            path="/articles/:topic"
+            element={<ArticleDetails user={user} />}
+          ></Route>
+
           <Route path="/add-article" element={<AddArticle />}></Route>
         </Routes>
 
