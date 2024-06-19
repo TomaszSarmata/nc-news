@@ -2,13 +2,17 @@ import "./articleList.css";
 import { ArticleCard } from "../article-card/ArticleCard";
 import { ncNewsApi } from "../../utils/api";
 import { useEffect, useState } from "react";
+import { getAllArticles } from "../../utils/api";
 
 export function ArticleList() {
   const [articles, setArticles] = useState([]);
 
   useEffect(() => {
-    ncNewsApi.get("/articles").then(({ data }) => setArticles(data.articles));
+    getAllArticles().then((articles) => {
+      setArticles(articles);
+    });
   }, []);
+
   return (
     <ul className="article-list">
       {articles.map((article) => (
