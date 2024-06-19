@@ -1,7 +1,13 @@
+.article-list-wrapper {
+  padding: 20px;
+  background-color: #f9f9f9;
+}
+
 .article-list {
-  margin: 0 auto;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  width: 70%;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
   list-style-type: none;
+  padding: 0;
+  margin: 0;
 }

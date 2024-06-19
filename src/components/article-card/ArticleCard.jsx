@@ -1,6 +1,7 @@
 import "./articleCard.css";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { truncateTitle } from "../../utils/helper";
 
 export function ArticleCard({ article }) {
   const [articleID, setArticleID] = useState(null);
@@ -22,13 +23,13 @@ export function ArticleCard({ article }) {
           <img src={article.article_img_url} alt="" />
         </div>
         <div className="article-card-text-container">
-          <h3 className="article-card-title">{article.title}</h3>
-          <p className="article-card-author">Author: {article.author}</p>
-          <p className="article-card-comments">{article.comment_count}</p>
-          <p>{article.topic}</p>
+          <h3 className="article-card-title">
+            {truncateTitle(article.title, 25)}
+          </h3>
+          <p className="article-card-topic">Topic: {article.topic}</p>
+          <p className="article-card-author">Posted by: {article.author}</p>
+          <button className="article-card-cta-btn">Read more</button>
         </div>
-
-        <button className="article-card-button">Vote</button>
       </div>
     </li>
   );
