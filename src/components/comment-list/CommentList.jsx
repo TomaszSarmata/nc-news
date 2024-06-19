@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { getComments } from "../../utils/api";
 import { formatDate } from "../../utils/helper";
 import { CommentForm } from "../comment-form/CommentForm";
+import { Loader } from "../loader/Loader";
 
 export function CommentList({ articleId }) {
   const [comments, setComments] = useState([]);
@@ -14,7 +15,7 @@ export function CommentList({ articleId }) {
   }, []);
 
   if (!comments) {
-    return <div>loading...</div>;
+    return <Loader />;
   }
 
   return (

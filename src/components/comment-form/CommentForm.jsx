@@ -1,6 +1,7 @@
 import "./commentForm.css";
 import { submitComment } from "../../utils/api";
 import { useState } from "react";
+import { Loader } from "../loader/Loader";
 
 export function CommentForm({ articleId, setComments }) {
   const [errorMessage, setErrorMessage] = useState("");
@@ -31,12 +32,13 @@ export function CommentForm({ articleId, setComments }) {
         setComments((currentComments) => {
           return [comment, ...currentComments];
         });
-        setLoading(false);
+
         setUserComment("");
         setSuccessMessage("Success");
         setTimeout(() => {
           setSuccessMessage("");
         }, 5000);
+        setLoading(false);
       })
 
       .catch((err) => {
@@ -51,7 +53,7 @@ export function CommentForm({ articleId, setComments }) {
       <h2>Add your comment</h2>
       <p className={errorMessage ? "error" : ""}>{errorMessage}</p>
       <p className={successMessage ? "success" : ""}>{successMessage}</p>
-      {loading ? <div>loading...</div> : null}
+      {loading ? <Loader /> : null}
       <form onSubmit={handleCommentSubmit}>
         <label htmlFor="user-comment">Your Comment:</label>
         <textarea

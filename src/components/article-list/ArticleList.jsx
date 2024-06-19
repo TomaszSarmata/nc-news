@@ -3,6 +3,7 @@ import { ArticleCard } from "../article-card/ArticleCard";
 import { ncNewsApi } from "../../utils/api";
 import { useEffect, useState } from "react";
 import { getAllArticles } from "../../utils/api";
+import { Loader } from "../loader/Loader";
 
 export function ArticleList() {
   const [articles, setArticles] = useState([]);
@@ -30,7 +31,7 @@ export function ArticleList() {
       });
   }, []);
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <Loader />;
 
   return (
     <div className="article-list-wrapper">
