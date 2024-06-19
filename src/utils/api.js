@@ -32,3 +32,7 @@ export const submitComment = (id, body) => {
     .post(`/articles/${id}/comments`, body)
     .then(({ data }) => data);
 };
+
+export const deleteComment = (id) => {
+  return ncNewsApi.delete(`/comments/${id}`);
+};
