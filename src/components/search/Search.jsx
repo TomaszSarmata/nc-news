@@ -1,3 +1,4 @@
+import "./search.css";
 import { useState, useEffect } from "react";
 import { getAllTopics } from "../../utils/api";
 import { Loader } from "../loader/Loader";
