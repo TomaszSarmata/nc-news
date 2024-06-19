@@ -8,8 +8,10 @@ export function ArticleList() {
   const [articles, setArticles] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    setLoading(true);
     getAllArticles()
       .then((articles) => {
         setErrorMessage("");
@@ -19,12 +21,16 @@ export function ArticleList() {
         setTimeout(() => {
           setSuccessMessage("");
         }, 1000);
+        setLoading(false);
       })
       .catch((err) => {
         setErrorMessage("There was a problem displaying the articles");
         console.log("error:", err);
+        setLoading(false);
       });
   }, []);
+
+  if (loading) return <div>Loading...</div>;
 
   return (
     <div className="article-list-wrapper">
