@@ -25,6 +25,7 @@ export function ArticleCard({ article }) {
           <h3 className="article-card-title">{article.title}</h3>
           <p className="article-card-author">Author: {article.author}</p>
           <p className="article-card-comments">{article.comment_count}</p>
+          <p>{article.topic}</p>
         </div>
 
         <button className="article-card-button">Vote</button>

@@ -13,7 +13,7 @@ export function ArticleList({ topic }) {
 
   useEffect(() => {
     setLoading(true);
-    getAllArticles()
+    getAllArticles(topic)
       .then((articles) => {
         setErrorMessage("");
         setSuccessMessage("");
@@ -29,7 +29,7 @@ export function ArticleList({ topic }) {
         console.log("error:", err);
         setLoading(false);
       });
-  }, []);
+  }, [topic]);
 
   if (loading) return <Loader />;
 

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { getAllTopics } from "../../utils/api";
 import { Loader } from "../loader/Loader";
 import { ArticleList } from "../article-list/ArticleList";
+import { useNavigate } from "react-router-dom";
 
 export function Search() {
   const [topics, setTopics] = useState([]);
@@ -9,6 +10,7 @@ export function Search() {
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     setLoading(true);
@@ -28,6 +30,7 @@ export function Search() {
 
   const handleTopic = (e) => {
     setTopic(e.target.value);
+    navigate(`/articles-by-topic/${e.target.value}`);
   };
 
   if (loading) return <Loader />;
