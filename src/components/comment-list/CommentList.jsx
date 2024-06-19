@@ -44,11 +44,6 @@ export function CommentList({ articleId, user }) {
 
     deleteComment(commentId)
       .then(() => {
-        // should I make another api call to refetch comments
-        // or should I use setComments somehow without fetching
-        // should I now include comments in the dependency arr?
-        //I want to display new list of comments after deleting
-        // and at the same time get rid of the modal
         setSuccessMessage("comment deleted");
         setTimeout(() => {
           setSuccessMessage("");
