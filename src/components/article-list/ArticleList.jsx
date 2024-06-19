@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { getAllArticles } from "../../utils/api";
 import { Loader } from "../loader/Loader";
 
-export function ArticleList() {
+export function ArticleList({ topic }) {
   const [articles, setArticles] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
