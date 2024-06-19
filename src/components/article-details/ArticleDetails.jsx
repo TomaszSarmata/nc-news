@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import { getArticleById } from "../../utils/api";
 import { formatDate } from "../../utils/helper";
 import { CommentList } from "../comment-list/CommentList";
+import { Loader } from "../loader/Loader";
 
 export function ArticleDetails() {
   const [article, setArticle] = useState(null);
@@ -67,7 +68,7 @@ export function ArticleDetails() {
   };
 
   if (!article) {
-    return <div>loading...</div>;
+    return <Loader />;
   }
 
   const articleDate = formatDate(article.created_at);
