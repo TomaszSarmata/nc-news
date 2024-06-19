@@ -9,7 +9,7 @@ import { ArticleDetails } from "./components/article-details/ArticleDetails";
 import { AddArticle } from "./components/add-article/AddArticle";
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [user, setUser] = useState("grumpy19");
 
   return (
     <BrowserRouter>
@@ -20,7 +20,7 @@ function App() {
           <Route path="/" element={<Home />}></Route>
           <Route
             path="/articles/:articleId"
-            element={<ArticleDetails />}
+            element={<ArticleDetails user={user} />}
           ></Route>
           <Route path="/add-article" element={<AddArticle />}></Route>
         </Routes>

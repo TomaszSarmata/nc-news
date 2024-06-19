@@ -5,7 +5,7 @@ import { formatDate } from "../../utils/helper";
 import { CommentForm } from "../comment-form/CommentForm";
 import { Loader } from "../loader/Loader";
 
-export function CommentList({ articleId }) {
+export function CommentList({ articleId, user }) {
   const [comments, setComments] = useState([]);
 
   useEffect(() => {
@@ -34,7 +34,9 @@ export function CommentList({ articleId }) {
               <p className="comment-text">{comment.body}</p>
               <p className="comment-author">{comment.author}</p>
               <p className="comment-data">{formatDate(comment.created_at)}</p>
-              <div className="delete-cross">X</div>
+              {comment.author === user ? (
+                <div className="delete-cross">X</div>
+              ) : null}
             </li>
           ))
         )}

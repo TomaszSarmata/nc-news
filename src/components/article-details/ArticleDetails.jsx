@@ -7,7 +7,7 @@ import { formatDate } from "../../utils/helper";
 import { CommentList } from "../comment-list/CommentList";
 import { Loader } from "../loader/Loader";
 
-export function ArticleDetails() {
+export function ArticleDetails({ user }) {
   const [article, setArticle] = useState(null);
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -96,7 +96,7 @@ export function ArticleDetails() {
         </div>
       </div>
 
-      <CommentList articleId={articleId} />
+      <CommentList articleId={articleId} user={user} />
     </article>
   );
 }
