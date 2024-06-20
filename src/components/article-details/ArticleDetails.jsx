@@ -27,9 +27,18 @@ export function ArticleDetails({ user }) {
         setLoading(false);
       })
       .catch((err) => {
-        console.log("error:", err);
-        setErrorMessage("There was a problem fetching article details");
-        setLoading(false);
+        if (err.response.status === 400) {
+          console.log("error:", err);
+          setErrorMessage(
+            "The article you have requested does not exist. Plase make sure you provide the valid article id"
+          );
+          console.log(errorMessage, "here error message");
+          setLoading(false);
+        } else {
+          console.log("error:", err);
+          setErrorMessage("There was a problem fetching article details");
+          setLoading(false);
+        }
       });
   }, [articleId]);
 
@@ -77,7 +86,11 @@ export function ArticleDetails({ user }) {
       });
   };
 
-  if (loading || !article) {
+  if (errorMessage) {
+    return <p className={errorMessage ? "error" : ""}>{errorMessage}</p>;
+  }
+
+  if (!article) {
     return <Loader />;
   }
 
