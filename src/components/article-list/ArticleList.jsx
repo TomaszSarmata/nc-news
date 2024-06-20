@@ -27,9 +27,17 @@ export function ArticleList({ topic }) {
         setLoading(false);
       })
       .catch((err) => {
-        setErrorMessage("There was a problem displaying the articles");
-        console.log("error:", err);
-        setLoading(false);
+        if (err.response.status === 404) {
+          setErrorMessage(
+            "There was a problem displaying the articles due to the incorrect url provided in the api call. Check /utils/api.js"
+          );
+          console.log("error:", err);
+          setLoading(false);
+        } else {
+          setErrorMessage("There was a problem displaying the articles");
+          console.log("error:", err);
+          setLoading(false);
+        }
       });
   }, [topic]);
 

@@ -42,9 +42,17 @@ export function CommentForm({ articleId, setComments }) {
       })
 
       .catch((err) => {
-        console.log("error:", err);
-        setLoading(false);
-        setErrorMessage("Something has gone wrong. Please try again");
+        if (err.response.status === 400) {
+          console.log("error", err);
+          setLoading(false);
+          setErrorMessage(
+            "Please make sure your comment is correctly filled out and that you are logged in as a user"
+          );
+        } else {
+          console.log("error:", err);
+          setLoading(false);
+          setErrorMessage("Something has gone wrong. Please try again");
+        }
       });
   };
 
