@@ -10,6 +10,8 @@ export function ArticleList({ topic }) {
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [loading, setLoading] = useState(false);
+  const [order, setOrder] = useState("desc");
+  const [sortBy, setSortBy] = useState("date");
 
   useEffect(() => {
     setLoading(true);
@@ -31,14 +33,61 @@ export function ArticleList({ topic }) {
       });
   }, [topic]);
 
+  const handleSortChange = (e) => {
+    setSortBy(e.target.value);
+  };
+  const handleOrderChange = (e) => {
+    setOrder(e.target.value);
+  };
+
+  const sortedArticles = [...articles].sort((a, b) => {
+    if (sortBy === "date") {
+      if (order === "asc") {
+        return new Date(a.created_at) - new Date(b.created_at);
+      } else {
+        return new Date(b.created_at) - new Date(a.created_at);
+      }
+    } else if (sortBy === "comment") {
+      if (order === "asc") {
+        return a.comment_count - b.comment_count;
+      } else {
+        return b.comment_count - a.comment_count;
+      }
+    } else if (sortBy === "votes") {
+      if (order === "asc") {
+        return a.votes - b.votes;
+      } else {
+        return b.votes - a.votes;
+      }
+    }
+    return 0;
+  });
+
   if (loading) return <Loader />;
 
   return (
     <div className="article-list-wrapper">
+      <div className="controllers-wrapper">
+        <label>
+          Sort by:
+          <select onChange={handleSortChange}>
+            <option value="date">Date</option>
+            <option value="comment">Comment Count</option>
+            <option value="votes">Votes</option>
+          </select>
+        </label>
+        <label>
+          Order:
+          <select onChange={handleOrderChange}>
+            <option value="desc">Descending</option>
+            <option value="asc">Ascending</option>
+          </select>
+        </label>
+      </div>
       <p className={errorMessage ? "error" : ""}>{errorMessage}</p>
       <p className={successMessage ? "success" : ""}>{successMessage}</p>
       <ul className="article-list">
-        {articles.map((article) => (
+        {sortedArticles.map((article) => (
           <ArticleCard key={article.article_id} article={article} />
         ))}
       </ul>
