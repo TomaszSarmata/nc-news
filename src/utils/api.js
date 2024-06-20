@@ -9,8 +9,6 @@ export const getAllArticles = (topic, sortBy, order) => {
     .get(`/articles`, {
       params: {
         topic: topic,
-        sort_by: sortBy,
-        order: order,
       },
     })
     .then(({ data }) => {

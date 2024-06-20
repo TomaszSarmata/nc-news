@@ -34,7 +34,7 @@ export function ArticleList({ topic }) {
         console.log("error:", err);
         setLoading(false);
       });
-  }, [topic, sortBy, order]);
+  }, [topic]);
 
   const handleSortChange = (e) => {
     const newSortBy = e.target.value;
