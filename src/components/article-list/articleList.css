@@ -11,3 +11,31 @@
   padding: 0;
   margin: 0;
 }
+
+.controllers-wrapper {
+  display: flex;
+  gap: 40px;
+}
+
+.controllers-wrapper label {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.controllers-wrapper select {
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  width: 100%;
+  max-width: 300px;
+  margin-bottom: 20px;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.search-wrapper select:focus {
+  border-color: #4caf50;
+}

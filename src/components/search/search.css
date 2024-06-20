@@ -32,6 +32,10 @@
   border-color: #4caf50;
 }
 
+.controllers-wrapper select {
+  margin-top: 10px;
+}
+
 .error {
   color: #ef4444;
   text-align: center;
