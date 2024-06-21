@@ -1,7 +1,11 @@
 import "./header.css";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { UserContext } from "../../contexts/User";
 
-export function Header({ user, setUser }) {
+export function Header() {
+  const { user, setUser } = useContext(UserContext);
+
   const handleLogin = () => {
     if (!user) return;
     setUser("");
@@ -27,6 +31,9 @@ export function Header({ user, setUser }) {
         </li>
         <img src={user ? `/${user}.png` : `/loggedOut.png`} alt="" />
       </ul>
+      <div className="header-img-container">
+        <img src="/banner.png" alt="" />
+      </div>
     </section>
   );
 }

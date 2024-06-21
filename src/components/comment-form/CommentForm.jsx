@@ -2,8 +2,11 @@ import "./commentForm.css";
 import { submitComment } from "../../utils/api";
 import { useState } from "react";
 import { Loader } from "../loader/Loader";
+import { useContext } from "react";
+import { UserContext } from "../../contexts/User";
 
 export function CommentForm({ articleId, setComments }) {
+  const { user, setUser } = useContext(UserContext);
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [loading, setLoading] = useState(false);
@@ -24,7 +27,7 @@ export function CommentForm({ articleId, setComments }) {
     e.preventDefault();
     setLoading(true);
     submitComment(articleId, {
-      username: "grumpy19",
+      username: user,
       body: userComment,
       article_id: articleId,
     })
@@ -43,6 +46,12 @@ export function CommentForm({ articleId, setComments }) {
 
       .catch((err) => {
         if (err.response.status === 400) {
+          console.log("error", err);
+          setLoading(false);
+          setErrorMessage(
+            "Please make sure your comment is correctly filled out and that you are logged in as a user"
+          );
+        } else if (err.response.status === 404) {
           console.log("error", err);
           setLoading(false);
           setErrorMessage(
