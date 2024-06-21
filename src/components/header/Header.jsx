@@ -1,21 +1,27 @@
+import "./header.css";
 import { Link } from "react-router-dom";
 
 export function Header() {
   return (
     <section className="header-wrapper">
-      <ul>
-        <li>
-          <Link to="/articles-by-topic/:topic">Search Articles</Link>
+      <ul className="nav-list">
+        <li className="nav-list-item">
+          <Link to="/" className="nav-link">
+            Home
+          </Link>
         </li>
-        <li>
-          <Link to="/">Home</Link>
+        <li className="nav-list-item grow">
+          <Link to="/articles-by-topic/:topic" className="nav-link">
+            Articles
+          </Link>
         </li>
-        <li>
-          <img src="" alt="" />
+
+        <li className="nav-list-item">
+          <Link to="/login" className="nav-link">
+            Login
+          </Link>
         </li>
-        <li>
-          <Link>Login</Link>
-        </li>
+        <img src="/loggedOut.png" alt="" />
       </ul>
     </section>
   );

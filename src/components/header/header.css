@@ -1,0 +1,23 @@
+.nav-list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  list-style-type: none;
+  border: 1px solid red;
+}
+
+.nav-list-item.grow {
+  flex: 1;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: black;
+}
+
+.nav-list img {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+}
