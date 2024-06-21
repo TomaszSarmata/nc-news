@@ -11,6 +11,9 @@ export function Header() {
           <Link to="/">Home</Link>
         </li>
         <li>
+          <img src="" alt="" />
+        </li>
+        <li>
           <Link>Login</Link>
         </li>
       </ul>
