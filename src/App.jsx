@@ -9,36 +9,34 @@ import { ArticleDetails } from "./components/article-details/ArticleDetails";
 import { Search } from "./components/search/Search";
 import { Login } from "./components/login/Login";
 import { NotFound } from "./components/not-found/NotFound";
+import { UserProvider } from "./contexts/User";
 
 function App() {
-  const [user, setUser] = useState("");
-
   return (
-    <BrowserRouter>
-      <div className="App">
-        <Header user={user} setUser={setUser}></Header>
+    <UserProvider>
+      <BrowserRouter>
+        <div className="App">
+          <Header></Header>
 
-        <Routes>
-          <Route path="/" element={<Home />}></Route>
-          <Route
-            path="/articles/:articleId"
-            element={<ArticleDetails user={user} />}
-          ></Route>
-          <Route path="/articles-by-topic" element={<Search />}></Route>
-          <Route
-            path="/articles-by-topic/:topic"
-            element={<Search user={user} />}
-          ></Route>
-          <Route
-            path="/login"
-            element={<Login user={user} setUser={setUser} />}
-          ></Route>
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+          <Routes>
+            <Route path="/" element={<Home />}></Route>
+            <Route
+              path="/articles/:articleId"
+              element={<ArticleDetails />}
+            ></Route>
+            <Route path="/articles-by-topic" element={<Search />}></Route>
+            <Route
+              path="/articles-by-topic/:topic"
+              element={<Search />}
+            ></Route>
+            <Route path="/login" element={<Login />}></Route>
+            <Route path="*" element={<NotFound />} />
+          </Routes>
 
-        <Footer></Footer>
-      </div>
-    </BrowserRouter>
+          <Footer></Footer>
+        </div>
+      </BrowserRouter>
+    </UserProvider>
   );
 }
 

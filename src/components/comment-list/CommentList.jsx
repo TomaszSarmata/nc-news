@@ -5,8 +5,11 @@ import { formatDate } from "../../utils/helper";
 import { CommentForm } from "../comment-form/CommentForm";
 import { Loader } from "../loader/Loader";
 import { deleteComment } from "../../utils/api";
+import { useContext } from "react";
+import { UserContext } from "../../contexts/User";
 
-export function CommentList({ articleId, user }) {
+export function CommentList({ articleId }) {
+  const { user, setUser } = useContext(UserContext);
   const [comments, setComments] = useState([]);
   const [deleteCommentId, setDeleteCommentId] = useState(null);
   const [loading, setLoading] = useState(false);

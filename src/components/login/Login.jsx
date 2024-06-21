@@ -1,7 +1,10 @@
 import "./login.css";
 import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { UserContext } from "../../contexts/User";
 
-export function Login({ user, setUser }) {
+export function Login() {
+  const { user, setUser } = useContext(UserContext);
   const navigate = useNavigate();
 
   const handleUserChange = (e) => {
