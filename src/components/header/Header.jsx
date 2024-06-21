@@ -1,7 +1,11 @@
 import "./header.css";
 import { Link } from "react-router-dom";
 
-export function Header() {
+export function Header({ user, setUser }) {
+  const handleLogin = () => {
+    if (!user) return;
+    setUser("");
+  };
   return (
     <section className="header-wrapper">
       <ul className="nav-list">
@@ -16,12 +20,12 @@ export function Header() {
           </Link>
         </li>
 
-        <li className="nav-list-item">
+        <li className="nav-list-item" onClick={handleLogin}>
           <Link to="/login" className="nav-link">
-            Login
+            {user ? "Logout" : "Login"}
           </Link>
         </li>
-        <img src="/loggedOut.png" alt="" />
+        <img src={user ? `/${user}.png` : `/loggedOut.png`} alt="" />
       </ul>
     </section>
   );

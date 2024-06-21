@@ -1,0 +1,49 @@
+.login-wrapper {
+  margin-top: 5rem;
+}
+
+.login-header {
+  text-align: center;
+  font-size: 36px;
+}
+
+.login-user-list {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  padding-left: 0;
+  list-style-type: none;
+  width: 25rem;
+  border: 1px solid #ccc;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.login-user-list-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-bottom: 1px solid #ccc;
+  padding: 15px;
+  transition: all 0.3s;
+}
+
+.login-user-list-item:hover {
+  transform: translateY(-5px);
+  transform: scale(1.05);
+}
+
+.login-user-list-item:last-of-type {
+  border-bottom: none;
+}
+
+.login-user-list img {
+  width: 100px;
+  height: 100px;
+}
+
+.user-name {
+  color: rgb(57, 54, 54);
+  font-size: 20px;
+}
