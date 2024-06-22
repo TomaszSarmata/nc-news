@@ -1,6 +1,6 @@
 .article-list-wrapper {
   padding: 20px;
-  background-color: #f9f9f9;
+  background-color: #f0fdf4;
 }
 
 .article-list {
@@ -14,6 +14,7 @@
 
 .controllers-wrapper {
   display: flex;
+  justify-content: space-between;
   gap: 40px;
 }
 

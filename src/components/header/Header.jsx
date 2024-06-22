@@ -39,8 +39,9 @@ export function Header() {
           </li>
         </ul>
       </div>
-      <div className="header-img-container">
-        <img src="/banner.png" alt="Banner" />
+      <div className="header-h1-container">
+        <h1>NC News</h1>
+        {/* <img src="/banner.png" alt="Banner" /> */}
       </div>
     </section>
   );

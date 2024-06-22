@@ -1,8 +1,6 @@
 .search-wrapper {
   padding: 20px;
-  background-color: #f9f9f9;
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   max-width: 1200px;
   margin: 0 auto;
   display: flex;
@@ -13,10 +11,12 @@
 .search-wrapper label {
   font-size: 18px;
   font-weight: bold;
+  margin: 0 auto;
   margin-bottom: 10px;
 }
 
 .search-wrapper select {
+  margin: 0 auto;
   padding: 10px;
   border-radius: 5px;
   border: 1px solid #ccc;
