@@ -10,7 +10,7 @@ Features
 
 Deployed Version
 
-You can view the deployed version of the application here - nc-news-tomasz.netlify.app/
+You can view the deployed version of the application here - https://nc-news-tomasz.netlify.app/
 
 Backend Repository
 
